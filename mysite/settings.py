@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # third party apps
+    'django_extensions',
+    
     # project apps
     'polls.apps.PollsConfig', # you can just write 'polls' here instead of the whole path
     
