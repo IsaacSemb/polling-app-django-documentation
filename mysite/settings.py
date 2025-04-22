@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # django inbuilt apps
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,6 +48,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    # project apps
+    'polls.apps.PollsConfig', # you can just write 'polls' here instead of the whole path
 ]
 
 ROOT_URLCONF = 'mysite.urls'
