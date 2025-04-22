@@ -31,16 +31,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # django inbuilt apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # project apps
+    'polls.apps.PollsConfig', # you can just write 'polls' here instead of the whole path
+    
 ]
 
 MIDDLEWARE = [
-    # django inbuilt apps
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -48,9 +52,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
-    # project apps
-    'polls.apps.PollsConfig', # you can just write 'polls' here instead of the whole path
 ]
 
 ROOT_URLCONF = 'mysite.urls'
