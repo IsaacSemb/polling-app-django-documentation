@@ -28,6 +28,8 @@ class Choice(models.Model):
 
 notes ="""
 
+python manage shell
+
 from interactive shell
 using the API to play with the ORM 
 
