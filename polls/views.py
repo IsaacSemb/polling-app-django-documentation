@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import loader
 
 from polls.models import Question
 
@@ -12,9 +13,14 @@ def index(request):
     # create a string from all of them
     out_put = ", ".join([q.question_text for q in latest_questions_list])
     
+    # get template you want to render
+    template = loader.get_template("polls/index.html")
+    
+    # context data to pass to template
+    context = {"latest_questions_list":latest_questions_list}
     
     # return HttpResponse("Hello, World. Youre at the polls index!")
-    return HttpResponse(out_put)
+    return HttpResponse(template.render(context=context, request=request))
 
 # seeing details on a question 
 def details(request, question_id):
