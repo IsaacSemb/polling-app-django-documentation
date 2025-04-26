@@ -9,18 +9,11 @@ def index(request):
     
     # query latest 5 questions
     latest_questions_list = Question.objects.order_by('-pub_date')[:5]
-    
-    # create a string from all of them
-    out_put = ", ".join([q.question_text for q in latest_questions_list])
-    
-    # get template you want to render
-    template = loader.get_template("polls/index.html")
-    
     # context data to pass to template
     context = {"latest_questions_list":latest_questions_list}
     
     # return HttpResponse("Hello, World. Youre at the polls index!")
-    return HttpResponse(template.render(context=context, request=request))
+    return render(request=request, template_name="polls/index.html", context=context)
 
 # seeing details on a question 
 def details(request, question_id):
