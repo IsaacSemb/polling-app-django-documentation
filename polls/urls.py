@@ -4,6 +4,10 @@ from . import views
 # the name parameter is used to build the url using the url tag in templates
 # the 'name' value as called by the {% url %} template tag
 
+# adding namespace to an application 
+# so that similar url patterns in app names can be distinguished
+app_name = "polls"
+
 urlpatterns = [
     path( "", views.index, name="index" ),
     path( "<int:question_id>/details", views.details, name="qtn_details" ),
