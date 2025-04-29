@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.http import Http404
+from django.urls import reverse
+from django.db.models import F
 
-from polls.models import Question
+from polls.models import Choice, Question
 
 # Create your views here.
 def index(request):
@@ -34,4 +36,31 @@ def results(request, question_id):
 
 # voting on a question
 def vote(request, question_id):
-    return HttpResponse(f"Youre voting on question {question_id}")
+    
+    # get question to vote on
+    question = get_object_or_404(Question, pk=question_id)
+    
+    try:
+        selected_choice = question.choice_set.get( pk = request.POST['choice'] )
+        
+    except (KeyError, Choice.DoesNotExist):
+        # return form to the user to try again
+        
+        return render (
+            request,
+            'polls/details.html',
+            {
+                "question": question,
+                "error_message": "You didnt select a choice"
+            }
+        )
+    else:
+        selected_choice.votes = F("votes") + 1
+        selected_choice.save()
+        
+        return HttpResponseRedirect( 
+                                    reverse( 
+                                            "polls:qtn_results", 
+                                            args=(question.id,)
+                                            )
+                                    )
