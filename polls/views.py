@@ -31,8 +31,11 @@ def details(request, question_id):
 
 # seeing results of a question
 def results(request, question_id):
-    response = f"Youre looking at question {question_id} results"
-    return HttpResponse(response)
+    
+    # get question whoe results to show
+    question = get_object_or_404(Question, pk=question_id)
+    
+    return render(request, 'polls/results.html', {"question":question})
 
 # voting on a question
 def vote(request, question_id):
