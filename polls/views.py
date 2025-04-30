@@ -1,7 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
-from django.template import loader
-from django.http import Http404
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import F
 from django.views import generic
@@ -16,26 +14,18 @@ class IndexView(generic.ListView):
     
     def get_queryset(self):
         return Question.objects.order_by('-pub_date')[:5]
+
+
+class DetailsView(generic.DetailView):
+    model = Question
+    template_name = "polls/details.html"
     
 
-# seeing details on a question 
-def details(request, question_id):
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = "polls/results.html"
+    pk_url_kwarg = "question_id"
     
-    # get the question by id
-    question = get_object_or_404( Question, pk=question_id )
-    
-    # context for the template
-    context = {"question":question}
-    
-    return render( request, "polls/details.html", context )
-
-# seeing results of a question
-def results(request, question_id):
-    
-    # get question whoe results to show
-    question = get_object_or_404(Question, pk=question_id)
-    
-    return render(request, 'polls/results.html', {"question":question})
 
 # voting on a question
 def vote(request, question_id):
