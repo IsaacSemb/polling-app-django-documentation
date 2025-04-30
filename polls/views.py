@@ -4,19 +4,19 @@ from django.template import loader
 from django.http import Http404
 from django.urls import reverse
 from django.db.models import F
+from django.views import generic
 
 from polls.models import Choice, Question
 
 # Create your views here.
-def index(request):
+
+class IndexView(generic.ListView):
+    template_name="polls/index.html"
+    context_object_name = "latest_questions_list"
     
-    # query latest 5 questions
-    latest_questions_list = Question.objects.order_by('-pub_date')[:5]
-    # context data to pass to template
-    context = {"latest_questions_list":latest_questions_list}
+    def get_queryset(self):
+        return Question.objects.order_by('-pub_date')[:5]
     
-    # return HttpResponse("Hello, World. Youre at the polls index!")
-    return render(request=request, template_name="polls/index.html", context=context)
 
 # seeing details on a question 
 def details(request, question_id):
