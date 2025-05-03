@@ -89,8 +89,25 @@ class QuestionIndexViewTests(TestCase):
         )    
     
     def test_future_question(self):
-        pass
-
+        """
+        this is to test a question
+        that is published in the future from now
+        the question should not be in the context data
+        """
+        
+        # create a question thats 7 days in the future
+        create_question(question_text="Future Question", days=7)
+        
+        # request for questions list view
+        response = self.client.get(reverse('poll:index'))
+        
+        # check the context data that comes in
+        # the future question must NOT bt there hence an empty list
+        self.assertQuerySetEqual(
+            response.context['latest_question_list'],
+            [] # this should be empty
+        )
+        
     def test_future_question_and_past_question(self):
         pass
 
