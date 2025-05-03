@@ -43,15 +43,15 @@ class QuestionModelTests(TestCase):
         recent_question = Question(pub_date=time)
         self.assertIs( recent_question.was_published_recently(), False )
     
-    def create_question(question_text, days):
-        """
-        create a question with question text
-        and a number of days off set from now
-        questions in the past have to show up on the display        
-        """
-        time = timezone.now() = datetime.timedelta(days=days)
-        return Question.objects.create(question_text=question_text, pub_date=time)
-    
+def create_question(question_text, days):
+    """
+    create a question with question text
+    and a number of days off set from now
+    questions in the past have to show up on the display        
+    """
+    time = timezone.now() = datetime.timedelta(days=days)
+    return Question.objects.create(question_text=question_text, pub_date=time)
+
 class QuestionIndexViewTests(TestCase):
     
     def test_no_questions(self):
