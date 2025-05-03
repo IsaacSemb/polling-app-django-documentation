@@ -55,8 +55,24 @@ class QuestionModelTests(TestCase):
 class QuestionIndexViewTests(TestCase):
     
     def test_no_questions(self):
-        pass
-    
+        """ 
+        if no questions exist
+        Display an appropriate question
+        """
+        
+        # sending a get request to the test client
+        response = self.client.get( reverse('polls:index') )
+        
+        # checking that the request has to be accepted
+        self.assertEqual( response.status_code, 200 )
+        
+        # checking the results of the response 
+        self.assertContains(response, "No polls are available")
+        
+        # the query set must be empty too
+        self.assertQuerySetEqual(response.context['latest_questions_list'], [])
+        
+        
     def test_past_question(self):
         pass
     
