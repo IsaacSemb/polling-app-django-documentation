@@ -109,7 +109,25 @@ class QuestionIndexViewTests(TestCase):
         )
         
     def test_future_question_and_past_question(self):
-        pass
+        """
+        This is to test both future and past questions
+        only the past question should exist in the context 
+        """
+        
+        # add two questions with differing times, one from the past and the other from the future
+        past_question = create_question(question_text="Past Question", days=-7)
+        
+        # for future question, we dont asssign it cause it wont show up anyway
+        create_question(question_text="Future Question", days=7)
+        
+        # get the response from the view
+        response = self.client.get(reverse('polls:index'))
+        
+        # confirm your results -- context must have only passed question
+        self.assertQuerySetEqual(
+            response.context['lastest_question_list'],
+            [past_question]
+        )
 
     def test_two_past_question(self):
         pass
