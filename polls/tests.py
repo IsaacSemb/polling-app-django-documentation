@@ -53,4 +53,18 @@ class QuestionModelTests(TestCase):
         return Question.objects.create(question_text=question_text, pub_date=time)
     
 class QuestionIndexViewTests(TestCase):
-    pass
+    
+    def test_no_questions(self):
+        pass
+    
+    def test_past_question(self):
+        pass
+    
+    def test_future_question(self):
+        pass
+
+    def test_future_question_and_past_question(self):
+        pass
+
+    def test_two_past_question(self):
+        pass
