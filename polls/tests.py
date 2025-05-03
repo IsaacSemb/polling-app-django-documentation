@@ -129,5 +129,22 @@ class QuestionIndexViewTests(TestCase):
             [past_question]
         )
 
-    def test_two_past_question(self):
-        pass
+    def test_two_past_questions(self):
+        """
+        This is to test when more that one past questions exist
+        Both questions should come in the context data
+        Hence the index page must display both
+        """
+        
+        # add two questions with past times
+        past_question_1 = create_question(question_text="Past Question", days=-7)
+        past_question_2 = create_question(question_text="Past Question", days=-10)
+        
+        # get the response from the view
+        response = self.client.get(reverse('polls:index'))
+        
+        # confirm your results -- context must have BOTH questions
+        self.assertQuerySetEqual(
+            response.context['latest_questions_list'],
+            [past_question_1, past_question_2]
+        )
