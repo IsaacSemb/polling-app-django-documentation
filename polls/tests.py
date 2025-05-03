@@ -49,7 +49,7 @@ def create_question(question_text, days):
     and a number of days off set from now
     questions in the past have to show up on the display        
     """
-    time = timezone.now() = datetime.timedelta(days=days)
+    time = timezone.now() + datetime.timedelta(days=days)
     return Question.objects.create(question_text=question_text, pub_date=time)
 
 class QuestionIndexViewTests(TestCase):
@@ -99,7 +99,7 @@ class QuestionIndexViewTests(TestCase):
         create_question(question_text="Future Question", days=7)
         
         # request for questions list view
-        response = self.client.get(reverse('poll:index'))
+        response = self.client.get(reverse('polls:index'))
         
         # check the context data that comes in
         # the future question must NOT bt there hence an empty list
@@ -148,3 +148,22 @@ class QuestionIndexViewTests(TestCase):
             response.context['latest_questions_list'],
             [past_question_1, past_question_2]
         )
+
+# testing the question details view
+
+# considerations made
+    # - user can guess future question URL and put it in the search bar and get view of future question
+    #   which should not be allowed
+
+class QuestionDetailViewTests(TestCase):
+    
+    def test_past_question(self):
+        """
+        This ensure that a question in past time can be retrived
+        """
+
+    def test_future_question(self):
+        """
+        the detail view of a question posted in the future
+        should return a 404 not found error
+        """
