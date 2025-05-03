@@ -166,4 +166,16 @@ class QuestionDetailViewTests(TestCase):
         """
         the detail view of a question posted in the future
         should return a 404 not found error
-        """
+        """        
+        # create a future question
+        future_question = create_question(question_text='future question', days=10)
+        
+        # get url to that future question detail (a would-be url)
+        url = reverse(viewname="polls:qtn_details", args=(future_question.id,))
+        
+        # send get request with client to that end point
+        response = self.client.get(url)
+
+        #  the system should return 404 not found 
+        self.assertEqual(response.status_code, 404)
+        
