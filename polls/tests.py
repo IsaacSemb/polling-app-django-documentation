@@ -74,7 +74,19 @@ class QuestionIndexViewTests(TestCase):
         
         
     def test_past_question(self):
-        pass
+        
+        # create a past question using helper function 
+        question = create_question(question_text='Past Question', days=-30)
+        
+        # hit the end point
+        response = self.client.get( reverse('polls:index') )
+        
+        # check -- the question must exist in the endpoint context data
+        # self.assertQuerySetEqual( what is returned , what you expect )
+        self.assertQuerySetEqual( 
+            response.context['latest_question_list'],
+            [question]
+        )    
     
     def test_future_question(self):
         pass
