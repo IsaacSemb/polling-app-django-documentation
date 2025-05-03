@@ -161,6 +161,20 @@ class QuestionDetailViewTests(TestCase):
         """
         This ensure that a question in past time can be retrived
         """
+        # create a past question
+        past_question = create_question(question_text='past question', days=-15)
+        
+        # get url to that future question detail (a would-be url)
+        url = reverse(viewname="polls:qtn_details", args=(past_question.id,))
+        
+        # send get request with client to that end point
+        response = self.client.get(url)
+
+        #  the system should return 200 for found 
+        self.assertEqual(response.status_code, 200)
+        
+        # check if the question text is found in the html template       
+        self.assertContains(response, past_question.question_text)
 
     def test_future_question(self):
         """
