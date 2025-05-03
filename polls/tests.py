@@ -84,7 +84,7 @@ class QuestionIndexViewTests(TestCase):
         # check -- the question must exist in the endpoint context data
         # self.assertQuerySetEqual( what is returned , what you expect )
         self.assertQuerySetEqual( 
-            response.context['latest_question_list'],
+            response.context['latest_questions_list'],
             [question]
         )    
     
@@ -104,7 +104,7 @@ class QuestionIndexViewTests(TestCase):
         # check the context data that comes in
         # the future question must NOT bt there hence an empty list
         self.assertQuerySetEqual(
-            response.context['latest_question_list'],
+            response.context['latest_questions_list'],
             [] # this should be empty
         )
         
@@ -125,7 +125,7 @@ class QuestionIndexViewTests(TestCase):
         
         # confirm your results -- context must have only passed question
         self.assertQuerySetEqual(
-            response.context['lastest_question_list'],
+            response.context['latest_questions_list'],
             [past_question]
         )
 
