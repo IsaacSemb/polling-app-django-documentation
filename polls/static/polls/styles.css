@@ -1,0 +1,11 @@
+li a{
+    color: green;
+}
+
+body {
+    background: white url("images/background.jpg") no-repeat;
+    /* background: white url("https://picsum.photos/200/300") no-repeat; */
+    /* background: white url("images/background.jpg") no-repeat center center; */
+    /* background-size: cover; */
+}
+
