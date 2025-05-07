@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question
+from .models import Choice, Question
 
 
 # create an admin for the model
@@ -14,3 +14,4 @@ class QuestionAdmin(admin.ModelAdmin):
     
 # link the admin and the model
 admin.site.register(Question, QuestionAdmin)
+admin.site.register(Choice)
