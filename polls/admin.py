@@ -8,10 +8,16 @@ class QuestionAdmin(admin.ModelAdmin):
     
     # more advanced thing to do is to use fieldsets
     fieldsets = [
+        # a category of fields
         ( None, { "fields":[ "question_text" ] } ),
-        ( "Date Information", { "fields":[ "pub_date" ] } )
+        
+        # another category
+        ( "Date Information", { 
+                                "fields":[ "pub_date" ], # fields to include
+                                "classes":["collapse"]  # classes (prolly styling) to include ; collapse means you can collapse/expand the category
+                                } )
     ]
-    
+     
 # link the admin and the model
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Choice)
