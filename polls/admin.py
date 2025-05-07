@@ -2,6 +2,11 @@ from django.contrib import admin
 from .models import Choice, Question
 
 
+
+class ChoiceInline(admin.StackedInline):
+    model = Choice
+    extra = 3
+
 # create an admin for the model
 class QuestionAdmin(admin.ModelAdmin):
     # fields = ["pub_date", "question_text"] # flips the ordering when editting
@@ -17,7 +22,8 @@ class QuestionAdmin(admin.ModelAdmin):
                                 "classes":["collapse"]  # classes (prolly styling) to include ; collapse means you can collapse/expand the category
                                 } )
     ]
-     
+    inlines = [ChoiceInline]
+    
 # link the admin and the model
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Choice)
